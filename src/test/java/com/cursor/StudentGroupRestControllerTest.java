@@ -44,24 +44,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-
-//@ExtendWith(SpringExtension.class)
-
 @RunWith(SpringRunner.class)
 //@WebMvcTest(value = StudentGroupRestController.class)
 @AutoConfigureMockMvc
-//@RestClientTest
-//@ContextConfiguration(classes={StudentGroupRestController.class})
 public class StudentGroupRestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-//    @MockBean
-//    private StudentGroupRestController studentGroupRestControllerMock;
-
-//    @MockBean
-//    private StudentTableServiceImpl studentTableServiceMock;
 
     @MockBean
     private GroupTableService groupTableServiceMock;
@@ -120,6 +109,13 @@ public class StudentGroupRestControllerTest {
     @Test
     public void deleteStudentFromGroup() throws Exception
     {
+        Gson gson = new Gson();
+        String requestBody = gson.toJson(new Student("John", "Smith","male",33));
 
+        this.mockMvc.perform(delete("/studentsGroup/deleteStudentFromGroup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(status().isOk());
     }
 }
