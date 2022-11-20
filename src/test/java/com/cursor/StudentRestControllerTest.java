@@ -2,13 +2,16 @@ package com.cursor;
 
 
 import com.cursor.entity.Student;
+import com.cursor.entity.StudentsGroup;
 import com.cursor.service.serviceInterfaces.StudentTableService;
+import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -69,7 +73,14 @@ public class StudentRestControllerTest {
     @Test
     public void testAddStudent() throws Exception
     {
+        Gson gson = new Gson();
+        String requestBody = gson.toJson(new Student("Johnson", "Geits","male",25));
 
+        this.mockMvc.perform(
+                        post("/student/addStudent")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestBody))
+                .andExpect(status().isCreated());
     }
 
 }
