@@ -91,6 +91,12 @@ public class TeacherRestControllerTest {
     @Test
     public void testTeacherNumberOfGroups() throws Exception
     {
+        when(teacherTableServiceMock.getAmountGroupInTeacher(1L)).thenReturn(2);
 
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/teacher/teacherNumberOfGroups").param("teacherId","1"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value("2"));
     }
+
+    @Test
 }
