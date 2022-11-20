@@ -34,11 +34,6 @@ public class StudentGroupRestController {
         groupTableService.addStudentToGroup(student, groupId);
     }
 
-    @PostMapping("/addStudentToGroupById")
-    public void addStudentToGroupById(@RequestParam Long studentId, @RequestParam Long groupId) {
-        groupTableService.addStudentToGroupById(studentId, groupId);
-    }
-
     @DeleteMapping("/deleteStudentFromGroupById")
     public void deleteStudentFromGroupById(@RequestParam Long studentId) {
         groupTableService.deleteStudentById(studentId);

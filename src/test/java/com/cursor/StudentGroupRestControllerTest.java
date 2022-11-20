@@ -1,5 +1,6 @@
 package com.cursor;
 
+import com.cursor.entity.Student;
 import com.cursor.entity.StudentsGroup;
 import com.cursor.repository.StudentRepository;
 import com.cursor.repository.StudentsGroupRepository;
@@ -38,6 +39,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -91,5 +93,33 @@ public class StudentGroupRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void addStudentsToGroup() throws Exception{
+
+        Gson gson = new Gson();
+        String requestBody = gson.toJson(new Student("John", "Smith","male",33));
+
+        this.mockMvc.perform(
+                        post("/studentsGroup/addStudentToGroup").param("groupId","1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestBody))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteStudentFromGroupById() throws Exception
+    {
+      this.mockMvc.perform(delete("/studentsGroup/deleteStudentFromGroupById").param("studentId", "1")
+                      .contentType(MediaType.APPLICATION_JSON)
+                      .accept(MediaType.APPLICATION_JSON))
+                      .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteStudentFromGroup() throws Exception
+    {
+
     }
 }
