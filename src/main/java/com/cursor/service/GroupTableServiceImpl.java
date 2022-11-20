@@ -22,15 +22,15 @@ public class GroupTableServiceImpl implements GroupTableService {
     }
 
     @Override
-    public void addStudentToGroupById(Long studentId, Long groupId) {
-        addStudentToGroup(studentRepository.findById(studentId).get(), groupId);
+    public StudentsGroup addStudentToGroupById(Long studentId, Long groupId) {
+        return addStudentToGroup(studentRepository.findById(studentId).get(), groupId);
     }
 
     @Override
-    public void addStudentToGroup(Student student, Long id) {
+    public StudentsGroup addStudentToGroup(Student student, Long id) {
         Optional<StudentsGroup> studentsGroup = studentsGroupRepository.findById(id);
         studentsGroup.get().addStudent(student);
-        studentsGroupRepository.save(studentsGroup.get());
+        return studentsGroupRepository.save(studentsGroup.get());
     }
 
     @Override

@@ -31,6 +31,12 @@ public class StudentsGroup {
         this.name = name;
     }
 
+    public StudentsGroup(Long id, String name, List<Student> students) {
+        this.id = id;
+        this.name = name;
+        this.students = students;
+    }
+
     @OneToMany(mappedBy = "studentsGroup", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Student> students = new ArrayList<>();
@@ -39,6 +45,8 @@ public class StudentsGroup {
     @JoinColumn(name = "teacher_id")
     @JsonBackReference
     private Teacher teacher;
+
+
 
     public void addStudent(Student student) {
         students.add(student);

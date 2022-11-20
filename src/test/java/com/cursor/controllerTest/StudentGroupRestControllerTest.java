@@ -1,4 +1,4 @@
-package com.cursor;
+package com.cursor.controllerTest;
 
 import com.cursor.entity.Student;
 import com.cursor.entity.StudentsGroup;

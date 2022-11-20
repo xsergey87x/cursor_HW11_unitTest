@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GroupTableService {
 
-    void addStudentToGroup(Student student, Long id);
+    StudentsGroup addStudentToGroup(Student student, Long id);
 
     void deleteStudentById(Long id);
     void deleteStudent(Student student);
@@ -17,5 +17,5 @@ public interface GroupTableService {
 
     List<StudentsGroup> getAllGroups();
 
-    void addStudentToGroupById(Long studentId, Long groupId);
+    StudentsGroup addStudentToGroupById(Long studentId, Long groupId);
 }

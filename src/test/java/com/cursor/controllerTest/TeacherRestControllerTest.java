@@ -1,4 +1,4 @@
-package com.cursor;
+package com.cursor.controllerTest;
 
 import com.cursor.entity.Student;
 import com.cursor.entity.StudentsGroup;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -99,4 +100,12 @@ public class TeacherRestControllerTest {
     }
 
     @Test
+    public void testDeleteGroupFromTeacher() throws Exception
+    {
+        this.mockMvc.perform(delete("/teacher/deleteGroupFromTeacher").param("groupId", "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
 }
