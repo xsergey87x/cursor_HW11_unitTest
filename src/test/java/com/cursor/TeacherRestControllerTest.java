@@ -37,7 +37,6 @@ public class TeacherRestControllerTest {
     {
         List<Teacher> teacherList = new ArrayList<>();
         teacherList.add(new Teacher("Will","Peterson","male",44));
-
         when(teacherTableServiceMock.getAllTeacher()).thenReturn(teacherList);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/teacher/getAll"))
@@ -46,5 +45,17 @@ public class TeacherRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName").value("Will"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].lastName").value("Peterson"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(44));
+    }
+
+    @Test
+    public void testAddGroupForTeacherById() throws Exception
+    {
+        when(teacherTableServiceMock.addGroupForTeacherById(2L,1L)).thenReturn(new Teacher("Will","Peterson","male",44));
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/teacher/addGroupForTeacherById/{teacherId}/{groupId}",1L,2L))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Will"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Peterson"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(44));
     }
 }
