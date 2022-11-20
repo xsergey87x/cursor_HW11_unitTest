@@ -51,4 +51,25 @@ public class StudentRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].age").value(25));
     }
 
+    @Test
+    public void getAllStudentsByTeacher() throws Exception
+    {
+        List<Student> studentList = new ArrayList<>();
+        studentList.add(new Student("John", "Smith","male",33));
+        when(studentTableServiceMock.getAllStudentByTeacher(1L)).thenReturn(studentList);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getAllByTeacher/1"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].firstName").value("John"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].lastName").value("Smith"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(33));
+    }
+
+    @Test
+    public void testAddStudent() throws Exception
+    {
+
+    }
+
 }

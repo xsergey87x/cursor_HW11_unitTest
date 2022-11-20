@@ -35,10 +35,4 @@ public class StudentRestController {
         return studentTableService.create(student);
     }
 
-    @GetMapping(value = "/addTestStudent")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Student createTestStudent() {
-        return studentTableService.create(new Student("John","Smith","male",33));
-    }
-
 }
