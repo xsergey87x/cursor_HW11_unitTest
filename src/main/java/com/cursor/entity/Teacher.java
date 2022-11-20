@@ -12,7 +12,6 @@ import java.util.List;
 
 
 @Data
-@ToString
 @RequiredArgsConstructor
 @Entity
 public class Teacher {
