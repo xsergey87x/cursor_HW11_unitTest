@@ -31,12 +31,6 @@ public class TeacherTableServiceImpl implements TeacherTableService {
     }
 
     @Override
-    public Teacher addGroupForTeacherById(Long studentsGroupId, Long teacherId) {
-        Optional<StudentsGroup> group = studentsGroupRepository.findById(studentsGroupId);
-        return addGroupForTeacher(group.get(), teacherId);
-    }
-
-    @Override
     public void deleteGroupFromTeacher(Long groupId) {
         StudentsGroup group = studentsGroupRepository.findById(groupId).get();
         Teacher teacher = group.getTeacher();

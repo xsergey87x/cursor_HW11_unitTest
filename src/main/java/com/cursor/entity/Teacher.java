@@ -47,7 +47,16 @@ public class Teacher {
     }
 
     public void addStudentsGroup(StudentsGroup studentsGroup) {
-        studentsGroups.add(studentsGroup);
+        if (this.getStudentsGroups() != null)
+        {
+            List<StudentsGroup> oldStudentGroup = new ArrayList<>();
+            oldStudentGroup.addAll(this.getStudentsGroups());
+            oldStudentGroup.add(studentsGroup);
+            this.setStudentsGroups(oldStudentGroup);
+        } else
+        {
+            this.setStudentsGroups(List.of(studentsGroup));
+        }
         studentsGroup.setTeacher(this);
     }
 

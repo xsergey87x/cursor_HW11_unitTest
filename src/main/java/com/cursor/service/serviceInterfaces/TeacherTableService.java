@@ -7,7 +7,6 @@ import java.util.List;
 public interface TeacherTableService {
 
     Teacher addGroupForTeacher(StudentsGroup group, Long teacherId);
-    Teacher addGroupForTeacherById(Long studentsGroupId, Long teacherId);
 
     void deleteGroupFromTeacher(Long groupId);
 

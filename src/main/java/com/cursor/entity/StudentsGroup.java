@@ -34,6 +34,14 @@ public class StudentsGroup {
         this.students = students;
     }
 
+    public StudentsGroup(Long id, String name, List<Student> students, Teacher teacher) {
+        this.id = id;
+        this.name = name;
+        this.students = students;
+        this.teacher = teacher;
+    }
+
+
     @OneToMany(mappedBy = "studentsGroup", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Student> students = new ArrayList<>();
