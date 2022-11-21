@@ -42,18 +42,10 @@ public class GroupTableServiceImpl implements GroupTableService {
     @Override
     public StudentsGroup deleteStudent(Student student) {
         StudentsGroup studentsGroup = student.getStudentsGroup();
-        if ((studentsGroup != null)&&(student != null))
-        {
+        if ((studentsGroup != null)&&(student != null))        {
             studentsGroup.deleteStudent(student);
         }
         return studentsGroupRepository.save(studentsGroup);
-    }
-
-    @Override
-    public StudentsGroup deleteStudentById(Long studentId) {
-        Optional<StudentsGroup> studentsGroup = studentsGroupRepository.findById(studentId);
-        studentsGroup.get().deleteStudent(studentRepository.findById(studentId).get());
-        return studentsGroupRepository.save(studentsGroup.get());
     }
 
     @Override

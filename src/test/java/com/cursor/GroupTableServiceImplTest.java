@@ -69,8 +69,13 @@ public class GroupTableServiceImplTest {
         given(studentsGroupRepositoryMock.findById(2L)).willReturn(Optional.of(group));
         given(studentsGroupRepositoryMock.save(group)).willReturn(group);
 
-        System.out.println(student + "**" + student.getStudentsGroup().getId());
         StudentsGroup newGroup = groupTableServiceMock.deleteStudent(student);
         assertThat(newGroup).isSameAs(group);
+    }
+
+    @Test
+    public void testCreateStudentGroup()
+    {
+
     }
 }
