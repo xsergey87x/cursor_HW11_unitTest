@@ -7,11 +7,11 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
-@Data
-@ToString
+
 @Entity
 public class StudentsGroup {
 
@@ -52,6 +52,52 @@ public class StudentsGroup {
     }
 
     public void deleteStudent(Student student) {
-        students.remove(student);
+        List<Student> studentsList = new ArrayList<>();
+        if ((student != null)&&(student.getStudentsGroup() != null)) {
+            studentsList.addAll(this.getStudents());
+            studentsList.remove(student);
+            student.setStudentsGroup(null);
+        }
+        this.setStudents(studentsList);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentsGroup{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

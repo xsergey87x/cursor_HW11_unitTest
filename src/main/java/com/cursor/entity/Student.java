@@ -8,8 +8,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-
-@Data
 @Entity
 public class Student {
 
@@ -45,4 +43,62 @@ public class Student {
     @JsonBackReference
     private StudentsGroup studentsGroup;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public StudentsGroup getStudentsGroup() {
+        return studentsGroup;
+    }
+
+    public void setStudentsGroup(StudentsGroup studentsGroup) {
+        this.studentsGroup = studentsGroup;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

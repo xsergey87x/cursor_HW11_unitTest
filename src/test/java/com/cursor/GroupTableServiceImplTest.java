@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,14 +62,14 @@ public class GroupTableServiceImplTest {
     @Test
     public void testDeleteStudent()
     {
-        Student student = new Student(1L,"John", "Smith","male",33,null);
-        StudentsGroup group = new StudentsGroup(2L,"firstGroup", List.of(student));
-        student.setStudentsGroup(group);
+        StudentsGroup group = new StudentsGroup(2L,"firstGroup",null);
+        Student student = new Student(1L,"John", "Smith","male",33,group);
+        group.setStudents(List.of(student));
 
         given(studentsGroupRepositoryMock.findById(2L)).willReturn(Optional.of(group));
         given(studentsGroupRepositoryMock.save(group)).willReturn(group);
-         group.setStudents(null);
 
+        System.out.println(student + "**" + student.getStudentsGroup().getId());
         StudentsGroup newGroup = groupTableServiceMock.deleteStudent(student);
         assertThat(newGroup).isSameAs(group);
     }
