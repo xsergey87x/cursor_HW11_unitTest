@@ -3,14 +3,11 @@ package com.cursor.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Data
@@ -46,11 +43,12 @@ public class StudentsGroup {
     @JsonBackReference
     private Teacher teacher;
 
-
-
     public void addStudent(Student student) {
-        students.add(student);
+        List<Student> oldStudent = new ArrayList<>();
+        oldStudent.addAll(this.getStudents());
+        oldStudent.add(student);
         student.setStudentsGroup(this);
+        this.setStudents(oldStudent);
     }
 
     public void deleteStudent(Student student) {

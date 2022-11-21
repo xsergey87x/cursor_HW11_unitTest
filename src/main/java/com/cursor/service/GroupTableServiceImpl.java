@@ -29,22 +29,28 @@ public class GroupTableServiceImpl implements GroupTableService {
     @Override
     public StudentsGroup addStudentToGroup(Student student, Long id) {
         Optional<StudentsGroup> studentsGroup = studentsGroupRepository.findById(id);
-        studentsGroup.get().addStudent(student);
+        if ((student != null)&&(studentsGroup.get() != null))
+        {
+            Student newStudent = student;
+            newStudent.setStudentsGroup(studentsGroup.get());
+            studentRepository.save(student);
+            studentsGroup.get().addStudent(student);
+        }
         return studentsGroupRepository.save(studentsGroup.get());
     }
 
     @Override
-    public void deleteStudent(Student student) {
+    public StudentsGroup deleteStudent(Student student) {
         Optional<StudentsGroup> studentsGroup = studentsGroupRepository.findById(student.getId());
         studentsGroup.get().deleteStudent(student);
-        studentsGroupRepository.save(studentsGroup.get());
+        return studentsGroupRepository.save(studentsGroup.get());
     }
 
     @Override
-    public void deleteStudentById(Long studentId) {
+    public StudentsGroup deleteStudentById(Long studentId) {
         Optional<StudentsGroup> studentsGroup = studentsGroupRepository.findById(studentId);
         studentsGroup.get().deleteStudent(studentRepository.findById(studentId).get());
-        studentsGroupRepository.save(studentsGroup.get());
+        return studentsGroupRepository.save(studentsGroup.get());
     }
 
     @Override

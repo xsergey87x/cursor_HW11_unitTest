@@ -9,8 +9,8 @@ public interface GroupTableService {
 
     StudentsGroup addStudentToGroup(Student student, Long id);
 
-    void deleteStudentById(Long id);
-    void deleteStudent(Student student);
+    StudentsGroup deleteStudentById(Long id);
+    StudentsGroup deleteStudent(Student student);
 
 
     StudentsGroup create(StudentsGroup studentsGroup);
