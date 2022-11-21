@@ -37,6 +37,15 @@ public class Teacher {
         this.age = age;
     }
 
+    public Teacher(Long id, String firstName, String lastName, String gender, int age, List<StudentsGroup> studentsGroups) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.age = age;
+        this.studentsGroups = studentsGroups;
+    }
+
     public void addStudentsGroup(StudentsGroup studentsGroup) {
         studentsGroups.add(studentsGroup);
         studentsGroup.setTeacher(this);
