@@ -44,11 +44,17 @@ public class StudentsGroup {
     private Teacher teacher;
 
     public void addStudent(Student student) {
-        List<Student> oldStudent = new ArrayList<>();
-        oldStudent.addAll(this.getStudents());
-        oldStudent.add(student);
+        if (this.getStudents() != null)
+        {
+            List<Student> oldStudent = new ArrayList<>();
+            oldStudent.addAll(this.getStudents());
+            oldStudent.add(student);
+            this.setStudents(oldStudent);
+        } else
+        {
+            this.setStudents(List.of(student));
+        }
         student.setStudentsGroup(this);
-        this.setStudents(oldStudent);
     }
 
     public void deleteStudent(Student student) {
