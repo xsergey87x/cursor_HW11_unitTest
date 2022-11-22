@@ -29,8 +29,7 @@ public class GroupTableServiceImpl implements GroupTableService {
     @Override
     public StudentsGroup addStudentToGroup(Student student, Long id) {
         Optional<StudentsGroup> studentsGroup = studentsGroupRepository.findById(id);
-        if ((student != null)&&(studentsGroup.get() != null))
-        {
+        if ((student != null) && (studentsGroup.get() != null)) {
             Student newStudent = student;
             newStudent.setStudentsGroup(studentsGroup.get());
             studentRepository.save(student);
@@ -42,7 +41,7 @@ public class GroupTableServiceImpl implements GroupTableService {
     @Override
     public StudentsGroup deleteStudent(Student student) {
         StudentsGroup studentsGroup = student.getStudentsGroup();
-        if ((studentsGroup != null)&&(student != null))        {
+        if ((studentsGroup != null) && (student != null)) {
             studentsGroup.deleteStudent(student);
         }
         return studentsGroupRepository.save(studentsGroup);
