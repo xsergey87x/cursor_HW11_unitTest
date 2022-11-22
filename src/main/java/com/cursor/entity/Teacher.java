@@ -61,7 +61,14 @@ public class Teacher {
     }
 
     public void deleteStudentsGroup(StudentsGroup studentsGroup) {
-        studentsGroups.remove(studentsGroup);
+        List<StudentsGroup> groupList = new ArrayList<>();
+        if (this.getStudentsGroups().contains(studentsGroup))
+        {
+            groupList.addAll(this.getStudentsGroups());
+            groupList.remove(studentsGroup);
+            studentsGroup.setTeacher(null);
+        }
+        this.setStudentsGroups(groupList);
     }
 
 }

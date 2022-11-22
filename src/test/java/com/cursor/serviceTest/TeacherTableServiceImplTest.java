@@ -8,6 +8,7 @@ import com.cursor.repository.TeacherRepository;
 import com.cursor.service.GroupTableServiceImpl;
 import com.cursor.service.TeacherTableServiceImpl;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -42,7 +43,35 @@ public class TeacherTableServiceImplTest {
         given(studentsGroupRepositoryMock.save(group)).willReturn(group);
 
         teacherTableServiceMock.addGroupForTeacher(group,3L);
-        assertThat(teacher.getStudentsGroups().contains(group));
+        Assertions.assertTrue(teacher.getStudentsGroups().contains(group));
+    }
+
+    @Test
+    public void testDeleteGroupFromTeacher()
+    {
+        StudentsGroup group = new StudentsGroup(2L,"firstGroup", null,null);
+        Teacher teacher = new Teacher(3L,"Peter","Johnson","male",55, null);
+        teacher.setStudentsGroups(List.of(group));
+        group.setTeacher(teacher);
+
+        given(studentsGroupRepositoryMock.findById(2L)).willReturn(Optional.of(group));
+        given(teacherRepositoryMock.save(teacher)).willReturn(teacher);
+
+        teacherTableServiceMock.deleteGroupFromTeacher(2L);
+        Assertions.assertFalse(teacher.getStudentsGroups().contains(group));
+    }
+
+    @Test
+    public void getAmountGroupInTeacher()
+    {
+        StudentsGroup group = new StudentsGroup(2L,"firstGroup", null,null);
+        Teacher teacher = new Teacher(3L,"Peter","Johnson","male",55, null);
+        teacher.setStudentsGroups(List.of(group));
+        group.setTeacher(teacher);
+
+        given(teacherRepositoryMock.findById(3L)).willReturn(Optional.of(teacher));
+
+
     }
 
 }

@@ -23,10 +23,6 @@ public class TeacherRestController {
         return teacherTableService.getAllTeacher();
     }
 
-    @GetMapping(value = "/addGroupForTeacherById/{teacherId}/{groupId}")
-    public Teacher addGroupForTeacherById(@PathVariable Long teacherId, @PathVariable Long groupId) {
-        return teacherTableService.addGroupForTeacherById(groupId, teacherId);
-    }
 
     @PostMapping(value = "/addGroupForTeacher")
     public Teacher addGroupForTeacher(@RequestBody StudentsGroup studentsGroup, @RequestParam Long groupId) {
