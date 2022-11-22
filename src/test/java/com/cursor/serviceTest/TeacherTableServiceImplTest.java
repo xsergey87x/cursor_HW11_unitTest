@@ -71,7 +71,6 @@ public class TeacherTableServiceImplTest {
 
         given(teacherRepositoryMock.findById(3L)).willReturn(Optional.of(teacher));
 
-
+        Assertions.assertEquals(1, teacherTableServiceMock.getAmountGroupInTeacher(3L));
     }
-
 }
