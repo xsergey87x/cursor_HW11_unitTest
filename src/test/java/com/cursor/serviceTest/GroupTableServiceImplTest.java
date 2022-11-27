@@ -5,21 +5,13 @@ import com.cursor.entity.StudentsGroup;
 import com.cursor.repository.StudentRepository;
 import com.cursor.repository.StudentsGroupRepository;
 import com.cursor.service.GroupTableServiceImpl;
-import com.cursor.service.serviceInterfaces.StudentTableService;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,59 +22,45 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class GroupTableServiceImplTest {
 
-    @Mock
-    private StudentsGroupRepository studentsGroupRepositoryMock = Mockito.mock(StudentsGroupRepository.class);;
+    private StudentsGroupRepository studentsGroupRepositoryMock = Mockito.mock(StudentsGroupRepository.class);
+    private StudentRepository studentRepositoryMock = Mockito.mock(StudentRepository.class);
+    private GroupTableServiceImpl groupTableServiceMock = new GroupTableServiceImpl(studentsGroupRepositoryMock, studentRepositoryMock);
 
-    @Mock
-    private StudentRepository studentRepositoryMock = Mockito.mock(StudentRepository.class);;
+    Student student;
+    StudentsGroup group;
 
-    @InjectMocks
-    private GroupTableServiceImpl groupTableServiceMock = new GroupTableServiceImpl(studentsGroupRepositoryMock,studentRepositoryMock);
-
-
-    @Test
-    public void testAddStudentToGroup()
-    {
-        Student student = new Student(1L,"John", "Smith","male",33,null);
-        StudentsGroup group = new StudentsGroup(2L,"firstGroup", null);
-
-        given(studentsGroupRepositoryMock.findById(2L)).willReturn(Optional.of(group));
-        given(studentsGroupRepositoryMock.save(group)).willReturn(group);
-
-        StudentsGroup newGroup = groupTableServiceMock.addStudentToGroup(student,2L);
-       assertThat(newGroup).isSameAs(group);
+    @BeforeEach
+    void initSetup() {
+        student = new Student(1L, "John", "Smith", "male", 33, null);
+        group = new StudentsGroup(2L, "firstGroup", null);
     }
 
     @Test
-    public void testDeleteStudent()
-    {
-        StudentsGroup group = new StudentsGroup(2L,"firstGroup",null);
-        Student student = new Student(1L,"John", "Smith","male",33,null);
-        group.addStudent(student);
-
+    public void testAddStudentToGroup() {
         given(studentsGroupRepositoryMock.findById(2L)).willReturn(Optional.of(group));
         given(studentsGroupRepositoryMock.save(group)).willReturn(group);
+        StudentsGroup newGroup = groupTableServiceMock.addStudentToGroup(student, 2L);
+        assertThat(newGroup).isSameAs(group);
+    }
 
+    @Test
+    public void testDeleteStudent() {
+        group.addStudent(student);
+        given(studentsGroupRepositoryMock.findById(2L)).willReturn(Optional.of(group));
+        given(studentsGroupRepositoryMock.save(group)).willReturn(group);
         groupTableServiceMock.deleteStudent(student);
-
         Assertions.assertFalse(group.getStudents().contains(student));
     }
 
     @Test
-    public void testCreateGroup()
-    {
-        StudentsGroup group = new StudentsGroup(2L,"firstGroup",null);
+    public void testCreateGroup() {
         given(studentsGroupRepositoryMock.save(group)).willReturn(group);
-
         assertEquals(group, groupTableServiceMock.create(group));
     }
 
     @Test
-    public void getAllGroups()
-    {
-        StudentsGroup group = new StudentsGroup(2L,"firstGroup",null);
+    public void getAllGroups() {
         given(studentsGroupRepositoryMock.findAll()).willReturn(List.of(group));
-
-        Assertions.assertEquals(List.of(group),groupTableServiceMock.getAllGroups());
+        Assertions.assertEquals(List.of(group), groupTableServiceMock.getAllGroups());
     }
 }
